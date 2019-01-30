@@ -17,11 +17,12 @@ io.on('connection', (socket) => {
 
     socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'))
 
-    socket.broadcast.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'))
+    socket.broadcast.emit('newMessage', generateMessage('Admin', 'New User joined'))
 
-    socket.on('createMessage', (message) => {
+    socket.on('createMessage', (message, callback) => {
         console.log('createMessage', message)
-        socket.broadcast.emit('newMessage', generateMessage(message.name, message.text))
+        io.emit('newMessage', generateMessage(message.name, message.text))
+        callback('This is from the server');
     })
 
     socket.on('disconnect', () => {
