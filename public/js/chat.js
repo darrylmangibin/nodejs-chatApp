@@ -52,7 +52,10 @@ socket.on('newMessage', function(message) {
         $('#messages').append(html)
         scrollToBottom()
     })
-    socket.on('newLocationMessage', function(message) {
+    
+})
+socket.on('newLocationMessage', function(message) {
+    $(function() {
         var formattedTime = moment(message.createdAt).format('h:mm a')
         var template = $('#location-message-template').html();
         var html = Mustache.render(template, {
@@ -62,7 +65,7 @@ socket.on('newMessage', function(message) {
         })
         $('#messages').append(html);
         scrollToBottom()
-    })
+    })    
 })
 
 $(function() {
